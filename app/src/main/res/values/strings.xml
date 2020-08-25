@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">Flavours</string>
+
+    <string name="home_label">What to eat?</string>
+    <string name="my_recipes_label">It\'s your kitchen.</string>
+    <string name="explore_label">Try something new!</string>
+    <string name="recipe_detail_label">Smells delicious!</string>
+
+    <string name="top_app_bar_desc">Top AppBar</string>
+    <string name="img_category_desc">Image representing a dish type</string>
+    <string name="img_recipe_desc">Image representing a dish</string>
+
+    <string name="search_hint">Type in what you\'re looking for…</string>
+    <string name="recipe_title_hint">Title: Mother\'s vegetable soup</string>
+    <string name="recipe_type_hint">Type: Dessert</string>
+    <string name="recipe_area_hint">Area: British</string>
+    <string name="measure_hint">250g</string>
+    <string name="ingredient_name_hint">flour</string>
+    <string name="measure_hint2">100ml</string>
+    <string name="ingredient_name_hint2">water</string>
+    <string name="instructions_hint">Mix the flour and water until they thicken</string>
+
+    <string name="ingredients_title">Ingredients</string>
+    <string name="method_title">Method</string>
+
+    <string name="add_ingredient">Ingredient</string>
+
+    <string name="edit_option">Edit</string>
+    <string name="done_option">Done</string>
+    <string name="save_option">Save</string>
+    <string name="download_option">Save for offline</string>
+    <string name="download_done_option">Saved for offline</string>
+
+    <string name="save_message">Saved successfully</string>
+    <string name="discard_message">Discarded</string>
+
+    <string name="db_name">recipe-database</string>
+
+    <string name="category_card_id_prefix">category_card</string>
+    <string name="category_image_id_prefix">img_category</string>
+    <string name="category_text_id_prefix">text_category</string>
+
+    <string-array name="categories">
+        <item>Appetizer</item>
+        <item>Salad</item>
+        <item>Main Course</item>
+        <item>Side Dishes</item>
+        <item>Extras</item>
+        <item>Dessert</item>
+    </string-array>
+
+    <array name="categories_images">
+        <item>@drawable/appetizer</item>
+        <item>@drawable/salad</item>
+        <item>@drawable/main_course</item>
+        <item>@drawable/side_dish</item>
+        <item>@drawable/extras</item>
+        <item>@drawable/dessert</item>
+    </array>
+</resources>

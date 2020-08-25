@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/option_edit"
+        android:icon="@drawable/ic_edit"
+        android:orderInCategory="20"
+        android:title="@string/edit_option"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/option_save"
+        android:icon="@drawable/ic_save"
+        android:orderInCategory="40"
+        android:title="@string/save_option"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/option_download"
+        android:icon="@drawable/ic_download"
+        android:title="@string/download_option"
+        android:orderInCategory="10"
+        app:showAsAction="ifRoom" />
+</menu>

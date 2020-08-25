@@ -1,0 +1,1000 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".RecipeDetailActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/top_app_bar_desc"
+                android:minHeight="?attr/actionBarSize" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/recipe_img"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/img_recipe_desc"
+            android:focusable="false"
+            android:onClick="captureImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_camera_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar_layout" />
+
+        <EditText
+            android:id="@+id/recipe_title"
+            style="@style/TextAppearance.AppCompat.Headline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="@string/recipe_title_hint"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/recipe_title_hint"
+            android:inputType="textMultiLine|text"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_img" />
+
+        <EditText
+            android:id="@+id/recipe_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:autofillHints="@string/recipe_type_hint"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/recipe_type_hint"
+            android:inputType="textMultiLine|text"
+            android:padding="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
+
+        <EditText
+            android:id="@+id/recipe_area"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="@string/recipe_area_hint"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/recipe_area_hint"
+            android:inputType="textMultiLine|text"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_title" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_type" />
+
+        <TextView
+            android:id="@+id/ingredients_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/nunito_bold"
+            android:text="@string/ingredients_title"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ingredients_title">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ingredient1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic"
+                        android:visibility="visible" />
+
+                    <EditText
+                        android:id="@+id/ing_name3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic"
+                        android:visibility="visible" />
+
+                    <EditText
+                        android:id="@+id/ing_name4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name8"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name9"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name10"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name16"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:autofillHints="@string/measure_hint2"
+                    android:hint="@string/measure_hint2"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure17"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name17"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name18"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure19"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name19"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ingredient20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="7">
+
+                    <EditText
+                        android:id="@+id/ing_measure20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_weight="3"
+                        android:autofillHints="@string/measure_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/measure_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                    <EditText
+                        android:id="@+id/ing_name20"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_weight="4"
+                        android:autofillHints="@string/ingredient_name_hint2"
+                        android:background="@drawable/custom_input"
+                        android:focusable="false"
+                        android:hint="@string/ingredient_name_hint2"
+                        android:inputType="textMultiLine|text"
+                        android:padding="12dp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/add_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:fontFamily="@font/nunito_bold"
+            android:gravity="center"
+            android:onClick="addIngredient"
+            android:text="@string/add_ingredient"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            app:drawableStartCompat="@drawable/ic_plus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_ingredient" />
+
+        <TextView
+            android:id="@+id/method_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/nunito_bold"
+            android:text="@string/method_title"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+        <EditText
+            android:id="@+id/instructions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="48dp"
+            android:autofillHints="@string/instructions_hint"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="top"
+            android:hint="@string/instructions_hint"
+            android:inputType="textMultiLine|text"
+            android:lineSpacingMultiplier="1.3"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/method_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
