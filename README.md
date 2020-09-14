@@ -1,6 +1,12 @@
 # Flavours - recipe journal app
 A sweet little recipe finder-and-keeper app for Android!
 
+<img src="https://user-images.githubusercontent.com/42904676/93077057-efb6e900-f6a5-11ea-87ff-92fd87f71957.png" alt="screenshot1" width="280"><img src="https://user-images.githubusercontent.com/42904676/93077243-28ef5900-f6a6-11ea-8e5d-a3a45f9c3dea.png" alt="screenshot2" width="280">
+
+<img src="https://user-images.githubusercontent.com/42904676/93077359-52a88000-f6a6-11ea-8b42-f3741540d567.png" alt="screenshot3" width="280"><img src="https://user-images.githubusercontent.com/42904676/93077377-589e6100-f6a6-11ea-8e72-580b624bdfb0.png" alt="screenshot4" width="280">
+
+<img src="https://user-images.githubusercontent.com/42904676/93077409-6358f600-f6a6-11ea-8139-86cd005b7cc3.png" alt="screenshot5" width="280"><img src="https://user-images.githubusercontent.com/42904676/93077452-7075e500-f6a6-11ea-949d-2a231787bb9c.png" alt="screenshot6" width="280">
+
 ## Table of Contents
 * [Description](#description)
 * [Features](#features)
