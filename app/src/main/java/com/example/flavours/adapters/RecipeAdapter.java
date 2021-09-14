@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,16 +16,19 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.flavours.R;
+import com.example.flavours.activities.RecipeDetailActivity;
+import com.example.flavours.models.Recipe;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    private LayoutInflater mInflater;
-    private List<Recipe> recipeDataSet;
-    private List<Recipe> recipeDataSetDefault;
-    private Context context;
+    private final LayoutInflater mInflater;
+    private final List<Recipe> recipeDataSet;
+    private final List<Recipe> recipeDataSetDefault;
+    private final Context context;
 
 
     public RecipeAdapter(Context context, List<Recipe> recipeDataSet) {
@@ -80,12 +83,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         if (newDataSet != null) {
 
-            // Assuming addAll() does not create a new List object.
             recipeDataSet.addAll(newDataSet);
         } else {
             recipeDataSet.addAll(recipeDataSetDefault);
         }
 
+        // TODO: Replace with notifyDataSetUpdated if possible
         notifyDataSetChanged();
     }
 

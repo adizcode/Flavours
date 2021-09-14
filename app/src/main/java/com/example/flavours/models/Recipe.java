@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -120,6 +120,7 @@ public class Recipe implements Parcelable {
         return recipeThumbUrl;
     }
 
+    // TODO: Remove if unnecessary
     public String getRecipeYoutubeUrl() {
         return recipeYoutubeUrl;
     }

@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -22,7 +22,7 @@ public class Ingredient {
     @ColumnInfo
     public String measure;
 
-    Ingredient(String ingredient, String measure, long recipeParentId) {
+    public Ingredient(String ingredient, String measure, long recipeParentId) {
         this.ingredient = ingredient;
         this.measure = measure;
         this.recipeParentId = recipeParentId;

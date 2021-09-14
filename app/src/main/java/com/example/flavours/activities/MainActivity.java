@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.flavours.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
 
@@ -39,10 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
 
+    // TODO: Remove if unnecessary
     // ArrayLists used to hold references to the views defined in XML
-    private List<MaterialCardView> cardViews = new ArrayList<>(6);
-    private List<ImageView> imageViews = new ArrayList<>(6);
-    private List<TextView> textViews = new ArrayList<>(6);
+    private final List<MaterialCardView> cardViews = new ArrayList<>(6);
+    private final List<ImageView> imageViews = new ArrayList<>(6);
+    private final List<TextView> textViews = new ArrayList<>(6);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // Creating transition animation for shared toolbar and bottom navigation bar
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, Pair.create((View) toolbar, "toolbar"), Pair.create((View) bottomNavigationView, "navigation"));
 
+                // TODO: Convert switch statement to if
                 // Item-dependent behaviour
                 switch (item.getItemId()) {
                     // TODO: Understand Runnable and Handler
@@ -185,27 +188,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String query;
 
         // Assigns value to the String based on the CardView that is clicked
-        switch (v.getId()) {
-            case R.id.category_card1:
-                query = "Starter";
-                break;
-            case R.id.category_card2:
-                query = "Salad";
-                break;
-            case R.id.category_card3:
-                query = "Indian";
-                break;
-            case R.id.category_card4:
-                query = "Side";
-                break;
-            case R.id.category_card5:
-                query = "Miscellaneous";
-                break;
-            case R.id.category_card6:
-                query = "Dessert";
-                break;
-            default:
-                query = null;
+        int id = v.getId();
+        if (id == R.id.category_card1) {
+            query = "Starter";
+        } else if (id == R.id.category_card2) {
+            query = "Salad";
+        } else if (id == R.id.category_card3) {
+            query = "Indian";
+        } else if (id == R.id.category_card4) {
+            query = "Side";
+        } else if (id == R.id.category_card5) {
+            query = "Miscellaneous";
+        } else if (id == R.id.category_card6) {
+            query = "Dessert";
+        } else {
+            query = null;
         }
 
         // Launches ExploreActivity with the String variable attached

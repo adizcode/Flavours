@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.models;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,6 +29,11 @@ import androidx.core.widget.NestedScrollView;
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
+import com.example.flavours.R;
+import com.example.flavours.room.RecipeDatabase;
+import com.example.flavours.models.RecipeWithIngredients;
+import com.example.flavours.models.Ingredient;
+import com.example.flavours.models.Recipe;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
@@ -42,15 +47,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class RecipeDetailActivity extends AppCompatActivity {
     public static final String RECIPE_OBJECT = "Recipe Object";
     public static final int REQUEST_CODE = 1;
 
-    private List<LinearLayout> linearLayouts = new ArrayList<>(20);
-    private List<EditText> editTexts = new ArrayList<>();
-    private List<EditText> ingredientEditTexts = new ArrayList<>();
-    private List<EditText> measureEditTexts = new ArrayList<>();
+    private final List<LinearLayout> linearLayouts = new ArrayList<>(20);
+    private final List<EditText> editTexts = new ArrayList<>();
+    private final List<EditText> ingredientEditTexts = new ArrayList<>();
+    private final List<EditText> measureEditTexts = new ArrayList<>();
 
     private NestedScrollView rootView;
     private ImageView recipeImage;
@@ -216,6 +222,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        // TODO: Convert switch statement to if
         switch (item.getItemId()) {
             case R.id.option_edit:
                 invalidateOptionsMenu();
@@ -479,6 +486,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
      * @param newHeight
      * @return
      */
+    // TODO: Remove if unnecessary
     public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
         int width = bm.getWidth();
         int height = bm.getHeight();
@@ -497,7 +505,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private File getImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageName = "img_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
