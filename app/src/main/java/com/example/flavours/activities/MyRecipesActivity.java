@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -19,6 +19,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.flavours.R;
+import com.example.flavours.adapters.RecipeAdapter;
+import com.example.flavours.room.RecipeDatabase;
+import com.example.flavours.models.RecipeWithIngredients;
+import com.example.flavours.models.Ingredient;
+import com.example.flavours.models.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -52,6 +58,8 @@ public class MyRecipesActivity extends AppCompatActivity {
                 Intent intent;
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MyRecipesActivity.this, Pair.create((View) toolbar, "toolbar"), Pair.create((View) bottomNavigationView, "navigation"));
+
+                // TODO: Convert switch statement to if
                 switch (id) {
                     case R.id.categories:
                         intent = new Intent(MyRecipesActivity.this, MainActivity.class);

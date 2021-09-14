@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.room;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,8 +6,13 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.example.flavours.models.Ingredient;
+import com.example.flavours.models.Recipe;
+import com.example.flavours.models.RecipeWithIngredients;
+
 import java.util.List;
 
+// TODO: Remove unnecessary queries
 @Dao
 public interface RecipeDao {
 

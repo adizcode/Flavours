@@ -1,4 +1,4 @@
-package com.example.flavours;
+package com.example.flavours.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -23,6 +23,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.flavours.R;
+import com.example.flavours.adapters.RecipeAdapter;
+import com.example.flavours.models.Ingredient;
+import com.example.flavours.models.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -81,6 +85,8 @@ public class ExploreActivity extends AppCompatActivity {
                 Intent intent;
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ExploreActivity.this, Pair.create((View) toolbar, "toolbar"), Pair.create((View) bottomNavigationView, "navigation"));
+
+                // TODO: Convert switch statement to if
                 switch (id) {
                     case R.id.categories:
                         intent = new Intent(ExploreActivity.this, MainActivity.class);
