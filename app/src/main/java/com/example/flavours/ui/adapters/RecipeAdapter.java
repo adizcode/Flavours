@@ -1,4 +1,4 @@
-package com.example.flavours.adapters;
+package com.example.flavours.ui.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.flavours.R;
-import com.example.flavours.activities.RecipeDetailActivity;
-import com.example.flavours.models.Recipe;
+import com.example.flavours.ui.activities.RecipeDetailActivity;
+import com.example.flavours.data.models.Recipe;
 import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;

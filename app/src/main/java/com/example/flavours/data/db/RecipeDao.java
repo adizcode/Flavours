@@ -1,4 +1,4 @@
-package com.example.flavours.room;
+package com.example.flavours.data.db;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,9 +6,9 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.example.flavours.models.Ingredient;
-import com.example.flavours.models.Recipe;
-import com.example.flavours.models.RecipeWithIngredients;
+import com.example.flavours.data.models.Ingredient;
+import com.example.flavours.data.models.Recipe;
+import com.example.flavours.data.models.RecipeWithIngredients;
 
 import java.util.List;
 

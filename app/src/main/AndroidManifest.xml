@@ -16,20 +16,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.example.flavours.activities.RecipeDetailActivity"
+            android:name=".ui.activities.RecipeDetailActivity"
             android:label="@string/recipe_detail_label"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.flavours.activities.MyRecipesActivity"
+            android:name=".ui.activities.MyRecipesActivity"
             android:label="@string/my_recipes_label"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.flavours.activities.ExploreActivity"
+            android:name=".ui.activities.ExploreActivity"
             android:label="@string/explore_label"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
-            android:name="com.example.flavours.activities.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:label="@string/home_label"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.flavours.activities;
+package com.example.flavours.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,10 +29,10 @@ import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.example.flavours.R;
-import com.example.flavours.models.Ingredient;
-import com.example.flavours.models.Recipe;
-import com.example.flavours.models.RecipeWithIngredients;
-import com.example.flavours.room.RecipeDatabase;
+import com.example.flavours.data.models.Ingredient;
+import com.example.flavours.data.models.Recipe;
+import com.example.flavours.data.models.RecipeWithIngredients;
+import com.example.flavours.data.db.RecipeDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;

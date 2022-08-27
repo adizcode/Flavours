@@ -1,4 +1,4 @@
-package com.example.flavours.activities;
+package com.example.flavours.ui.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;

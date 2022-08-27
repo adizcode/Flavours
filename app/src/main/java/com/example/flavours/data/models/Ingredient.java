@@ -1,4 +1,4 @@
-package com.example.flavours.models;
+package com.example.flavours.data.models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

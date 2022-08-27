@@ -1,4 +1,4 @@
-package com.example.flavours.activities;
+package com.example.flavours.ui.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -19,11 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.flavours.R;
-import com.example.flavours.adapters.RecipeAdapter;
-import com.example.flavours.models.Ingredient;
-import com.example.flavours.models.Recipe;
-import com.example.flavours.models.RecipeWithIngredients;
-import com.example.flavours.room.RecipeDatabase;
+import com.example.flavours.ui.adapters.RecipeAdapter;
+import com.example.flavours.data.models.Ingredient;
+import com.example.flavours.data.models.Recipe;
+import com.example.flavours.data.models.RecipeWithIngredients;
+import com.example.flavours.data.db.RecipeDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 

@@ -1,4 +1,4 @@
-package com.example.flavours.activities;
+package com.example.flavours.ui.activities;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -19,9 +19,9 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.flavours.R;
-import com.example.flavours.adapters.RecipeAdapter;
-import com.example.flavours.models.Ingredient;
-import com.example.flavours.models.Recipe;
+import com.example.flavours.ui.adapters.RecipeAdapter;
+import com.example.flavours.data.models.Ingredient;
+import com.example.flavours.data.models.Recipe;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
