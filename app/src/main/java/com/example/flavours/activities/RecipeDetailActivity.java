@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,10 +29,10 @@ import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.example.flavours.R;
-import com.example.flavours.room.RecipeDatabase;
-import com.example.flavours.models.RecipeWithIngredients;
 import com.example.flavours.models.Ingredient;
 import com.example.flavours.models.Recipe;
+import com.example.flavours.models.RecipeWithIngredients;
+import com.example.flavours.room.RecipeDatabase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
@@ -474,34 +473,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
             linearLayouts.get(ingredientsVisible).setVisibility(View.VISIBLE);
             ingredientsVisible++;
         }
-    }
-
-    /**
-     * Author: M. Waqas Pervez
-     * <p>
-     * Method to reduce the size of a Bitmap
-     *
-     * @param bm
-     * @param newWidth
-     * @param newHeight
-     * @return
-     */
-    // TODO: Remove if unnecessary
-    public Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        // Create a Matrix the multiplication
-        Matrix matrix = new Matrix();
-
-        // Resize the Bitmap
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // Recreate the new Bitmap
-        return Bitmap.createBitmap(
-                bm, 0, 0, width, height, matrix, false);
     }
 
     private File getImageFile() throws IOException {

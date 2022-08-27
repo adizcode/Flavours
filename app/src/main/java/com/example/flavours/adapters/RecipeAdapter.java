@@ -88,7 +88,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             recipeDataSet.addAll(recipeDataSetDefault);
         }
 
-        // TODO: Replace with notifyDataSetUpdated if possible
         notifyDataSetChanged();
     }
 

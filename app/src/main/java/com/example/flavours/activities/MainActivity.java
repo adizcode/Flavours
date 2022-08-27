@@ -6,12 +6,10 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,9 +17,6 @@ import com.bumptech.glide.Glide;
 import com.example.flavours.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This Activity is launched when the app is opened, or when the user taps on the Categories Tab.
@@ -40,12 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
 
-    // TODO: Remove if unnecessary
-    // ArrayLists used to hold references to the views defined in XML
-    private final List<MaterialCardView> cardViews = new ArrayList<>(6);
-    private final List<ImageView> imageViews = new ArrayList<>(6);
-    private final List<TextView> textViews = new ArrayList<>(6);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,76 +48,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Finding a reference to the bottom navigation bar and setting it up
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
 
-                // Declaring empty intent variable
-                Intent intent;
+            // Declaring empty intent variable
+            Intent intent;
 
-                // Creating transition animation for shared toolbar and bottom navigation bar
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, Pair.create((View) toolbar, "toolbar"), Pair.create((View) bottomNavigationView, "navigation"));
+            // Creating transition animation for shared toolbar and bottom navigation bar
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, Pair.create(toolbar, "toolbar"), Pair.create(bottomNavigationView, "navigation"));
 
-                // TODO: Convert switch statement to if
-                // Item-dependent behaviour
-                switch (item.getItemId()) {
-                    // TODO: Understand Runnable and Handler
-                    // TODO: Verify the impact of ActivityOptions.makeSceneTransitionAnimation()
+            // TODO: Convert switch statement to if
+            // Item-dependent behaviour
+            switch (item.getItemId()) {
+                // TODO: Understand Runnable and Handler
+                // TODO: Verify the impact of ActivityOptions.makeSceneTransitionAnimation()
 
-                    // Current Tab
-                    case R.id.categories:
-                        break;
+                // Current Tab
+                case R.id.categories:
+                    break;
 
-                    // ExploreActivity Tab
-                    case R.id.explore:
+                // ExploreActivity Tab
+                case R.id.explore:
 
-                        // Launches ExploreActivity with the transition
-                        intent = new Intent(MainActivity.this, ExploreActivity.class);
-                        startActivity(intent, options.toBundle());
+                    // Launches ExploreActivity with the transition
+                    intent = new Intent(MainActivity.this, ExploreActivity.class);
+                    startActivity(intent, options.toBundle());
 
-                        // Finishes current Activity after 2 seconds
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 2000);
+                    // Finishes current Activity after 2 seconds
+                    new Handler().postDelayed(this::finish, 2000);
 
-                        break;
+                    break;
 
-                    // MyRecipesActivity Tab
-                    case R.id.my_recipes:
+                // MyRecipesActivity Tab
+                case R.id.my_recipes:
 
-                        // Launches MyRecipesActivity with the transition
-                        intent = new Intent(MainActivity.this, MyRecipesActivity.class);
-                        startActivity(intent, options.toBundle());
+                    // Launches MyRecipesActivity with the transition
+                    intent = new Intent(MainActivity.this, MyRecipesActivity.class);
+                    startActivity(intent, options.toBundle());
 
-                        // Finishes current Activity after 2 seconds
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 2000);
+                    // Finishes current Activity after 2 seconds
+                    new Handler().postDelayed(this::finish, 2000);
 
-                        break;
+                    break;
 
-                    // Empty default case
-                    default:
-                }
-
-                // Should return true to display the clicked item as the selected item
-                // In this app, each tab is linked to a separate Activity, albeit with identical bottom navigation bars
-                // Hence returning false
-                return false;
+                // Empty default case
+                default:
             }
+
+            // Should return true to display the clicked item as the selected item
+            // In this app, each tab is linked to a separate Activity, albeit with identical bottom navigation bars
+            // Hence returning false
+            return false;
         });
 
         // Retrieving category names from resources
         String[] categories = getResources().getStringArray(R.array.categories);
 
         // Retrieving drawable resource IDs for images
-        // TODO: Understand why TypedArrays are used
         TypedArray images = getResources().obtainTypedArray(R.array.categories_images);
 
         // Setting up each CardView (6 in total)
@@ -140,9 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // Setting OnClickListener to the particular CardView
             cardView.setOnClickListener(this);
-
-            // Adding the CardView to the cardViews ArrayList (for future reference)
-            cardViews.add(cardView);
 
 
             // Finding a reference to the (i + 1) th Category ImageView
@@ -157,9 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .circleCrop()
                     .into(imageView);
 
-            // Adding the ImageView to the imageViews ArrayList (for future reference)
-            imageViews.add(imageView);
-
             // Finding a reference to the (i + 1) th Category TextView
             int resIdText = getResources().getIdentifier(getString(R.string.category_text_id_prefix) + (i + 1), "id", getPackageName());
             TextView textView = findViewById(resIdText);
@@ -167,13 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // Setting appropriate category name to the particular TextView
             // The category names were stored earlier in the categories String array
             textView.setText(categories[i]);
-
-            // Adding the TextView to the textViews ArrayList (for future reference)
-            textViews.add(textView);
         }
 
         // Recycling the images TypedArray
-        // TODO: Understand this line
         images.recycle();
     }
 

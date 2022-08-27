@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Pair;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -21,10 +20,10 @@ import androidx.room.Room;
 
 import com.example.flavours.R;
 import com.example.flavours.adapters.RecipeAdapter;
-import com.example.flavours.room.RecipeDatabase;
-import com.example.flavours.models.RecipeWithIngredients;
 import com.example.flavours.models.Ingredient;
 import com.example.flavours.models.Recipe;
+import com.example.flavours.models.RecipeWithIngredients;
+import com.example.flavours.room.RecipeDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -50,50 +49,37 @@ public class MyRecipesActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         bottomNavigationView.setSelectedItemId(R.id.my_recipes);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                Intent intent;
+            Intent intent;
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MyRecipesActivity.this, Pair.create((View) toolbar, "toolbar"), Pair.create((View) bottomNavigationView, "navigation"));
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(MyRecipesActivity.this, Pair.create(toolbar, "toolbar"), Pair.create(bottomNavigationView, "navigation"));
 
-                // TODO: Convert switch statement to if
-                switch (id) {
-                    case R.id.categories:
-                        intent = new Intent(MyRecipesActivity.this, MainActivity.class);
-                        startActivity(intent, options.toBundle());
+            // TODO: Convert switch statement to if
+            switch (id) {
+                case R.id.categories:
+                    intent = new Intent(MyRecipesActivity.this, MainActivity.class);
+                    startActivity(intent, options.toBundle());
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 2000);
+                    new Handler().postDelayed(this::finish, 2000);
 
-                        break;
+                    break;
 
-                    case R.id.explore:
-                        intent = new Intent(MyRecipesActivity.this, ExploreActivity.class);
-                        startActivity(intent, options.toBundle());
+                case R.id.explore:
+                    intent = new Intent(MyRecipesActivity.this, ExploreActivity.class);
+                    startActivity(intent, options.toBundle());
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 2000);
+                    new Handler().postDelayed(this::finish, 2000);
 
-                        break;
+                    break;
 
-                    case R.id.my_recipes:
-                        break;
+                case R.id.my_recipes:
+                    break;
 
-                    default:
-                }
-                return false;
+                default:
             }
+            return false;
         });
 
         rootView = findViewById(R.id.root_view);
@@ -123,13 +109,10 @@ public class MyRecipesActivity extends AppCompatActivity {
                 adapter.notifyItemRemoved(position);
 
                 Snackbar snackbar = Snackbar.make(rootView, "Recipe deleted", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        myRecipes.add(position, current);
-                        adapter.notifyItemInserted(position);
-                        recyclerView.scrollToPosition(position);
-                    }
+                snackbar.setAction("UNDO", v -> {
+                    myRecipes.add(position, current);
+                    adapter.notifyItemInserted(position);
+                    recyclerView.scrollToPosition(position);
                 });
 
                 snackbar.addCallback(new Snackbar.Callback() {

@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Pair;
-import android.view.MenuItem;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -18,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -77,50 +72,37 @@ public class ExploreActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.explore);
 
         // Setting up the bottom navigation bar
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                Intent intent;
+            Intent intent;
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ExploreActivity.this, Pair.create((View) toolbar, "toolbar"), Pair.create((View) bottomNavigationView, "navigation"));
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ExploreActivity.this, Pair.create(toolbar, "toolbar"), Pair.create(bottomNavigationView, "navigation"));
 
-                // TODO: Convert switch statement to if
-                switch (id) {
-                    case R.id.categories:
-                        intent = new Intent(ExploreActivity.this, MainActivity.class);
-                        startActivity(intent, options.toBundle());
+            // TODO: Convert switch statement to if
+            switch (id) {
+                case R.id.categories:
+                    intent = new Intent(ExploreActivity.this, MainActivity.class);
+                    startActivity(intent, options.toBundle());
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 2000);
+                    new Handler().postDelayed(this::finish, 2000);
 
-                        break;
+                    break;
 
-                    case R.id.explore:
-                        break;
+                case R.id.explore:
+                    break;
 
-                    case R.id.my_recipes:
-                        intent = new Intent(ExploreActivity.this, MyRecipesActivity.class);
-                        startActivity(intent, options.toBundle());
+                case R.id.my_recipes:
+                    intent = new Intent(ExploreActivity.this, MyRecipesActivity.class);
+                    startActivity(intent, options.toBundle());
 
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                finish();
-                            }
-                        }, 2000);
+                    new Handler().postDelayed(this::finish, 2000);
 
-                        break;
+                    break;
 
-                    default:
-                }
-                return false;
+                default:
             }
+            return false;
         });
 
         // Enabling Volley debug messages
@@ -153,57 +135,49 @@ public class ExploreActivity extends AppCompatActivity {
 
                 final List<Recipe> filteredList = new ArrayList<>();
 
-                JsonObjectRequest recipesRequest = new JsonObjectRequest(Request.Method.GET, SEARCH_URL + newText, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
+                JsonObjectRequest recipesRequest = new JsonObjectRequest(Request.Method.GET, SEARCH_URL + newText, null, response -> {
+                    try {
 
-                            JSONArray meals = response.getJSONArray("meals");
+                        JSONArray meals = response.getJSONArray("meals");
 
-                            for (int i = 0; i < meals.length(); i++) {
-                                JSONObject meal = meals.getJSONObject(i);
-                                String name = meal.getString("strMeal");
-                                String strCat = meal.getString("strCategory");
-                                String category = strCat.equals("Side") ? "Side Dish" : strCat;
-                                String area = meal.getString("strArea");
-                                String instructions = meal.getString("strInstructions");
-                                String thumbUrl = meal.getString("strMealThumb");
-                                String youtubeUrl = meal.getString("strYoutube");
+                        for (int i = 0; i < meals.length(); i++) {
+                            JSONObject meal = meals.getJSONObject(i);
+                            String name = meal.getString("strMeal");
+                            String strCat = meal.getString("strCategory");
+                            String category = strCat.equals("Side") ? "Side Dish" : strCat;
+                            String area = meal.getString("strArea");
+                            String instructions = meal.getString("strInstructions");
+                            String thumbUrl = meal.getString("strMealThumb");
+                            String youtubeUrl = meal.getString("strYoutube");
 
-                                List<String> ingredients = new ArrayList<>();
-                                List<String> ingredientMeasures = new ArrayList<>();
+                            List<String> ingredients = new ArrayList<>();
+                            List<String> ingredientMeasures = new ArrayList<>();
 
-                                for (int j = 1; j <= Ingredient.INGREDIENT_COUNT; j++) {
-                                    String ingredient = meal.getString("strIngredient" + j).trim();
-                                    String ingredientMeasure = meal.getString("strMeasure" + j).trim();
+                            for (int j = 1; j <= Ingredient.INGREDIENT_COUNT; j++) {
+                                String ingredient = meal.getString("strIngredient" + j).trim();
+                                String ingredientMeasure = meal.getString("strMeasure" + j).trim();
 
-                                    if (ingredient.length() == 0 || ingredientMeasure.length() == 0) {
-                                        break;
-                                    }
-
-                                    ingredients.add(ingredient);
-                                    ingredientMeasures.add(ingredientMeasure);
+                                if (ingredient.length() == 0 || ingredientMeasure.length() == 0) {
+                                    break;
                                 }
 
-                                Recipe recipe = new Recipe(name, category, area, instructions, thumbUrl, youtubeUrl, ingredients, ingredientMeasures, true);
-                                filteredList.add(recipe);
-
-                                // Checks end of loop
-                                if (i == meals.length() - 1) {
-                                    adapter.notifyDataSetUpdated(filteredList);
-                                }
-
+                                ingredients.add(ingredient);
+                                ingredientMeasures.add(ingredientMeasure);
                             }
-                        } catch (JSONException e) {
-                            Log.e(LOG_TAG, "JSON Error", e);
+
+                            Recipe recipe = new Recipe(name, category, area, instructions, thumbUrl, youtubeUrl, ingredients, ingredientMeasures, true);
+                            filteredList.add(recipe);
+
+                            // Checks end of loop
+                            if (i == meals.length() - 1) {
+                                adapter.notifyDataSetUpdated(filteredList);
+                            }
+
                         }
+                    } catch (JSONException e) {
+                        Log.e(LOG_TAG, "JSON Error", e);
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(LOG_TAG, error);
-                    }
-                });
+                }, error -> VolleyLog.d(LOG_TAG, error));
 
                 recipesRequest.setTag(SEARCH_TAG);
                 queue.add(recipesRequest);
@@ -224,55 +198,47 @@ public class ExploreActivity extends AppCompatActivity {
 
                     final List<Recipe> filteredList = new ArrayList<>();
 
-                    JsonObjectRequest recipesRequest = new JsonObjectRequest(Request.Method.GET, SEARCH_URL + category, null, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                JSONArray meals = response.getJSONArray("meals");
+                    JsonObjectRequest recipesRequest = new JsonObjectRequest(Request.Method.GET, SEARCH_URL + category, null, response -> {
+                        try {
+                            JSONArray meals = response.getJSONArray("meals");
 
-                                for (int i = 0; i < meals.length(); i++) {
-                                    JSONObject meal = meals.getJSONObject(i);
-                                    String name = meal.getString("strMeal");
-                                    String strCat = meal.getString("strCategory");
-                                    String category = strCat.equals("Side") ? "Side Dish" : strCat;
-                                    String area = meal.getString("strArea");
-                                    String instructions = meal.getString("strInstructions");
-                                    String thumbUrl = meal.getString("strMealThumb");
-                                    String youtubeUrl = meal.getString("strYoutube");
+                            for (int i = 0; i < meals.length(); i++) {
+                                JSONObject meal = meals.getJSONObject(i);
+                                String name = meal.getString("strMeal");
+                                String strCat = meal.getString("strCategory");
+                                String category1 = strCat.equals("Side") ? "Side Dish" : strCat;
+                                String area = meal.getString("strArea");
+                                String instructions = meal.getString("strInstructions");
+                                String thumbUrl = meal.getString("strMealThumb");
+                                String youtubeUrl = meal.getString("strYoutube");
 
-                                    List<String> ingredients = new ArrayList<>();
-                                    List<String> ingredientMeasures = new ArrayList<>();
+                                List<String> ingredients = new ArrayList<>();
+                                List<String> ingredientMeasures = new ArrayList<>();
 
-                                    for (int j = 1; j <= Ingredient.INGREDIENT_COUNT; j++) {
-                                        String ingredient = meal.getString("strIngredient" + j).trim();
-                                        String ingredientMeasure = meal.getString("strMeasure" + j).trim();
+                                for (int j = 1; j <= Ingredient.INGREDIENT_COUNT; j++) {
+                                    String ingredient = meal.getString("strIngredient" + j).trim();
+                                    String ingredientMeasure = meal.getString("strMeasure" + j).trim();
 
-                                        if (ingredient.length() == 0 || ingredientMeasure.length() == 0) {
-                                            break;
-                                        }
-
-                                        ingredients.add(ingredient);
-                                        ingredientMeasures.add(ingredientMeasure);
+                                    if (ingredient.length() == 0 || ingredientMeasure.length() == 0) {
+                                        break;
                                     }
 
-                                    Recipe recipe = new Recipe(name, category, area, instructions, thumbUrl, youtubeUrl, ingredients, ingredientMeasures, true);
-                                    filteredList.add(recipe);
-
-                                    // Checks end of loop
-                                    if (i == meals.length() - 1) {
-                                        adapter.notifyDataSetUpdated(filteredList);
-                                    }
+                                    ingredients.add(ingredient);
+                                    ingredientMeasures.add(ingredientMeasure);
                                 }
-                            } catch (JSONException e) {
-                                Log.e(LOG_TAG, "JSON Error", e);
+
+                                Recipe recipe = new Recipe(name, category1, area, instructions, thumbUrl, youtubeUrl, ingredients, ingredientMeasures, true);
+                                filteredList.add(recipe);
+
+                                // Checks end of loop
+                                if (i == meals.length() - 1) {
+                                    adapter.notifyDataSetUpdated(filteredList);
+                                }
                             }
+                        } catch (JSONException e) {
+                            Log.e(LOG_TAG, "JSON Error", e);
                         }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            VolleyLog.d(LOG_TAG, error);
-                        }
-                    });
+                    }, error -> VolleyLog.d(LOG_TAG, error));
 
                     recipesRequest.setTag(SEARCH_TAG);
                     queue.add(recipesRequest);
@@ -287,80 +253,63 @@ public class ExploreActivity extends AppCompatActivity {
 
                     final List<Recipe> filteredList = new ArrayList<>();
 
-                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
+                    JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+                        try {
 
-                                JSONArray meals = response.getJSONArray("meals");
+                            JSONArray meals = response.getJSONArray("meals");
 
-                                for (int i = 0; i < meals.length(); i++) {
-                                    JSONObject meal = meals.getJSONObject(i);
-                                    String id = meal.getString("idMeal");
+                            for (int i = 0; i < meals.length(); i++) {
+                                JSONObject meal = meals.getJSONObject(i);
+                                String id = meal.getString("idMeal");
 
-                                    String lookupUrl = LOOKUP_BY_ID_URL + id;
+                                String lookupUrl = LOOKUP_BY_ID_URL + id;
 
-                                    JsonObjectRequest detail_request = new JsonObjectRequest(Request.Method.GET, lookupUrl, null, new Response.Listener<JSONObject>() {
-                                        @Override
-                                        public void onResponse(JSONObject response) {
-                                            try {
-                                                JSONObject mealLookedUp = response.getJSONArray("meals").getJSONObject(0);
+                                JsonObjectRequest detail_request = new JsonObjectRequest(Request.Method.GET, lookupUrl, null, response1 -> {
+                                    try {
+                                        JSONObject mealLookedUp = response1.getJSONArray("meals").getJSONObject(0);
 
-                                                String name = mealLookedUp.getString("strMeal");
-                                                String strCat = mealLookedUp.getString("strCategory");
-                                                String cat = strCat.equals("Side") ? "Side Dish" : strCat;
-                                                String area = mealLookedUp.getString("strArea");
-                                                String instructions = mealLookedUp.getString("strInstructions");
-                                                String thumbUrl = mealLookedUp.getString("strMealThumb");
-                                                String youtubeUrl = mealLookedUp.getString("strYoutube");
+                                        String name = mealLookedUp.getString("strMeal");
+                                        String strCat = mealLookedUp.getString("strCategory");
+                                        String cat = strCat.equals("Side") ? "Side Dish" : strCat;
+                                        String area = mealLookedUp.getString("strArea");
+                                        String instructions = mealLookedUp.getString("strInstructions");
+                                        String thumbUrl = mealLookedUp.getString("strMealThumb");
+                                        String youtubeUrl = mealLookedUp.getString("strYoutube");
 
-                                                List<String> ingredients = new ArrayList<>();
-                                                List<String> ingredientMeasures = new ArrayList<>();
+                                        List<String> ingredients = new ArrayList<>();
+                                        List<String> ingredientMeasures = new ArrayList<>();
 
-                                                for (int j = 1; j <= Ingredient.INGREDIENT_COUNT; j++) {
-                                                    String ingredient = mealLookedUp.getString("strIngredient" + j).trim();
-                                                    String ingredientMeasure = mealLookedUp.getString("strMeasure" + j).trim();
+                                        for (int j = 1; j <= Ingredient.INGREDIENT_COUNT; j++) {
+                                            String ingredient = mealLookedUp.getString("strIngredient" + j).trim();
+                                            String ingredientMeasure = mealLookedUp.getString("strMeasure" + j).trim();
 
-                                                    if (ingredient.length() == 0 || ingredientMeasure.length() == 0) {
-                                                        break;
-                                                    }
-
-                                                    ingredients.add(ingredient);
-                                                    ingredientMeasures.add(ingredientMeasure);
-                                                }
-
-                                                Recipe recipe = new Recipe(name, cat, area, instructions, thumbUrl, youtubeUrl, ingredients, ingredientMeasures, true);
-                                                filteredList.add(recipe);
-
-                                                adapter.notifyDataSetUpdated(filteredList);
-
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
+                                            if (ingredient.length() == 0 || ingredientMeasure.length() == 0) {
+                                                break;
                                             }
+
+                                            ingredients.add(ingredient);
+                                            ingredientMeasures.add(ingredientMeasure);
                                         }
-                                    }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-                                            VolleyLog.d(LOG_TAG, error);
-                                        }
-                                    });
 
-                                    Volley.newRequestQueue(getApplicationContext()).add(detail_request);
-                                }
+                                        Recipe recipe = new Recipe(name, cat, area, instructions, thumbUrl, youtubeUrl, ingredients, ingredientMeasures, true);
+                                        filteredList.add(recipe);
 
-                            } catch (JSONException e) {
+                                        adapter.notifyDataSetUpdated(filteredList);
 
-                                e.printStackTrace();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }, error -> VolleyLog.d(LOG_TAG, error));
+
+                                Volley.newRequestQueue(getApplicationContext()).add(detail_request);
                             }
 
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+                        } catch (JSONException e) {
 
-                            VolleyLog.d(LOG_TAG, error);
+                            e.printStackTrace();
                         }
-                    });
+
+                    }, error -> VolleyLog.d(LOG_TAG, error));
 
                     request.setTag(SEARCH_TAG);
                     queue.add(request);
